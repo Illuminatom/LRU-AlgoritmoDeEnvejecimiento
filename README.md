@@ -1,5 +1,3 @@
-# LRU-AlgoritmoDeEnvejecimiento
-
 Repositorio para el desarrollo del Caso 2 de Infraestructura Computacional
 
 GRUPO 1:
