@@ -121,6 +121,8 @@ public class Generador {
         
         for (int ref = 0; ref < NR; ref++) {
             Boolean control = true;
+
+            control = (contadorM1 < NF * NC1) || (contadorM2 < NC1 * NC2) || (contadorM3 < NF * NC2);
             
             while(control){
                 int matrizAleatoria = random.nextInt(3) + 1;  
@@ -185,10 +187,10 @@ public class Generador {
                         control = false;
                     }
                 }
-
-                control = (contadorM1 < NF * NC1) || (contadorM2 < NC1 * NC2) || (contadorM3 < NF * NC2);
                 System.out.println("Hey");
-            }   
+            }
+
+            control = (contadorM1 < NF * NC1) || (contadorM2 < NC1 * NC2) || (contadorM3 < NF * NC2);
             
         }
     }
