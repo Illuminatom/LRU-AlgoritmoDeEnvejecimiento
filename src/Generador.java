@@ -24,13 +24,13 @@ public class Generador {
         System.out.println("Ingrese el tamaño de pagina (en bytes): ");
         TP = scanner.nextInt();
 
-        System.out.println("Ingrese el numero de filas de la primera matriz: ");
+        System.out.println("Ingrese el numero de filas de la primera matriz (NF): ");
         NF = scanner.nextInt();
 
-        System.out.println("Ingrese el numero de columnas de la primera matriz: ");
+        System.out.println("Ingrese el numero de columnas de la primera matriz (NC1): ");
         NC1 = scanner.nextInt();
 
-        System.out.println("Ingrese el numero de columnas de la matriz 2: ");
+        System.out.println("Ingrese el numero de columnas de la segunda matriz (NC2): ");
         NC2 = scanner.nextInt();        
         
         
@@ -115,26 +115,81 @@ public class Generador {
 
     public static void generarReferencias(int[][] matriz1, int[][] matriz2, int[][] matriz3, BufferedWriter bufferedWriter) throws IOException {
         Random random = new Random();
+        int contadorM1 = 0;
+        int contadorM2 = 0;
+        int contadorM3 = 0;
+        
         for (int ref = 0; ref < NR; ref++) {
-            int matrizAleatoria = random.nextInt(3) + 1;  
-    
-            int filaAleatoria = random.nextInt(NF);
-            int colAleatoria;
-    
-            if (matrizAleatoria == 1) {
-                colAleatoria = random.nextInt(NC1);
-            } else if (matrizAleatoria == 2) {
-                colAleatoria = random.nextInt(NC2);
-            } else {
-                colAleatoria = random.nextInt(NC2);
-            }
-    
-            int paginaVirtual = (filaAleatoria * NC2 + colAleatoria) * 4 / TP;
-            int desplazamiento = (filaAleatoria * NC2 + colAleatoria) * 4 % TP;
-    
-            String referencia = "[" + matrizAleatoria + "-" + filaAleatoria + "-" + colAleatoria + "], " + paginaVirtual + ", " + desplazamiento;
-            bufferedWriter.write(referencia);
-            bufferedWriter.newLine();
+            Boolean control = true;
+            
+            while(control){
+                int matrizAleatoria = random.nextInt(3) + 1;  
+                if(matrizAleatoria == 1 && contadorM1 < NF*NC1){
+                    int fila = contadorM1/NC1 + 1;
+                    if(contadorM1%NC1 == 0){
+                        fila = contadorM1/NC1;
+                    }
+
+                    int columna = contadorM1 % NC1 + 1;
+
+                    String referencia = "[" +matrizAleatoria+"-"+fila+"-"+columna+ "]";
+                    int paginaVirtual = ((fila*NC1 + columna)*4)/TP;
+                    int desplazamiento = ((fila*NC1 + columna)*4)%TP;
+                    referencia += ", " +paginaVirtual+", "+ desplazamiento;
+                    bufferedWriter.write(referencia);
+                    bufferedWriter.newLine();
+                    contadorM1 +=1;
+
+                    if (contadorM1 >= NF * NC1) {
+                        control = false;
+                    }
+                }
+
+                else if(matrizAleatoria == 2 && contadorM2 < NC1*NC2){
+                    int fila = contadorM2/NC2;
+                    if(contadorM2%NC2 == 0){
+                        fila = contadorM2/NC2;
+                    }
+
+                    int columna = contadorM2 % NC1 + 1;
+
+                    String referencia = "[" +matrizAleatoria+"-"+fila+"-"+columna+ "]";
+                    int paginaVirtual = ((fila*NC2 + columna)*4)/TP;
+                    int desplazamiento = ((fila*NC2 + columna)*4)%TP;
+                    referencia += ", " +paginaVirtual+", "+ desplazamiento;
+                    bufferedWriter.write(referencia);
+                    bufferedWriter.newLine();
+                    contadorM2 +=1;
+
+                    if (contadorM2 >= NC1 * NC2) {
+                        control = false;
+                    }
+                }
+                else if (matrizAleatoria == 3 && contadorM3 < NF * NC2) {
+                    int fila = contadorM3 / NC2;
+                    if (contadorM3 % NC2 == 0) {
+                        fila = contadorM3 / NC2;
+                    }
+                
+                    int columna = contadorM3 % NC2 + 1;
+                
+                    String referencia = "[" + matrizAleatoria + "-" + fila + "-" + columna + "]";
+                    int paginaVirtual = ((fila * NC2 + columna) * 4) / TP;
+                    int desplazamiento = ((fila * NC2 + columna) * 4) % TP;
+                    referencia += ", " + paginaVirtual + ", " + desplazamiento;
+                    bufferedWriter.write(referencia);
+                    bufferedWriter.newLine();
+                    contadorM3 += 1;
+
+                    if (contadorM3 >= NF * NC2) {
+                        control = false;
+                    }
+                }
+
+                control = (contadorM1 < NF * NC1) || (contadorM2 < NC1 * NC2) || (contadorM3 < NF * NC2);
+                System.out.println("Hey");
+            }   
+            
         }
     }
     
