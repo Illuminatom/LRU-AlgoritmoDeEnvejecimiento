@@ -32,6 +32,7 @@ public class SegundoGenerador {
         try {
             generarReferencias(path, NF, NC1, NC2, TP);
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -80,10 +81,10 @@ public class SegundoGenerador {
                 for (int j = 0; j < NC2; j++) {
                     for (int k = 0; k < NC1; k++) {
                         
-                        int direccion = (i * NC1 + j) * 4;
+                        int direccion = (i * NC1 + k) * 4;
                         int nPagina = direccion / TP;
                         int desplazamiento = direccion % TP;
-                        bufferedWriter.write("[A-" + i + "-" + j + "]," + nPagina + "," + desplazamiento);
+                        bufferedWriter.write("[A-" + i + "-" + k + "]," + nPagina + "," + desplazamiento);
                         bufferedWriter.newLine();
                         
                         direccion = (k * NC2 + j) * 4;
@@ -95,9 +96,9 @@ public class SegundoGenerador {
                     }
                     
                     int direccion = (i * NC2 + j) * 4;
-                    int nPagina = direccion / TP + nPaginasMatrizA + nPaginasMatrizB;
+                    int page = direccion / TP + nPaginasMatrizA + nPaginasMatrizB;
                     int desplazamiento = direccion % TP;
-                    bufferedWriter.write("[C-" + i + "-" + j + "]," + nPagina + "," + desplazamiento);
+                    bufferedWriter.write("[C-" + i + "-" + j + "]," + page + "," + desplazamiento);
                     bufferedWriter.newLine();
                 }
             }
