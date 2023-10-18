@@ -50,7 +50,7 @@ public class FallosPagina {
         String linea;
         linea = bufferedReader.readLine();
         while(linea != null){
-            System.out.println("LEYENDO LINEA : " +linea);
+            System.out.println("\nLEYENDO LINEA : " +linea);
             int numPagina = 0;
             String[] partes = linea.split(",");
             if(!linea.contains("=")){
@@ -66,10 +66,12 @@ public class FallosPagina {
                     fallos +=1;
                     System.out.println("Las tablas en memoria son: "+paginas+"");
                     int indexPaginaReemplazar = tablaPaginas.darPaginaAReemplazar(paginas);
-                    System.out.println("\nLa pagina que deberia reemplazarse es "+paginas.get(indexPaginaReemplazar)+"\n");
+                    System.out.println("\nLa pagina que deberia reemplazarse es "+paginas.get(indexPaginaReemplazar)+"");
 
                     System.out.println();
                     tablaPaginas.reemplazarPagina(indexPaginaReemplazar, new AlgoritmoEnvejecimiento());
+
+                    System.out.println("La pagina "+paginas.get(indexPaginaReemplazar)+" que estaba en la posicion " + (indexPaginaReemplazar+1)+" de la tabla de paginas se reemplazara por la pagina "+numPagina);
                     paginas.set(indexPaginaReemplazar, numPagina);
                 }
                 else if(!linea.contains("=")){
