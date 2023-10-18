@@ -13,7 +13,7 @@ public class SegundoGenerador {
     private static FileWriter fileWriter;
     private static BufferedWriter bufferedWriter;
 
-    public static void main(String[] args) {
+    public void generarArchivo() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese el tamaño de pagina (en bytes): ");
         TP = scanner.nextInt();
@@ -27,16 +27,16 @@ public class SegundoGenerador {
         System.out.println("Ingrese el numero de columnas de la segunda matriz (NC2): ");
         NC2 = scanner.nextInt();        
 
-        String path = "..\\LRU-AlgoritmoDeEnvejecimiento/data/references.txt";        
+        System.out.println("Ingrese el nombre con el que quiere guardar el archivo (sin el .txt): ");
+        String nombreArchivo = scanner.next();
+
+        String path = "..\\LRU-AlgoritmoDeEnvejecimiento/data/"+ nombreArchivo +".txt";        
 
         try {
             generarReferencias(path, NF, NC1, NC2, TP);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        scanner.close();
     }
 
 
@@ -56,9 +56,10 @@ public class SegundoGenerador {
         int nPaginasMatrizC = (tamanoMatrizC+TP-1) / TP;
 
         int NP = nPaginasMatrizA+nPaginasMatrizB+nPaginasMatrizC;
-        System.out.print(nPaginasMatrizA);
-        System.out.print(nPaginasMatrizB);
-        System.out.print(nPaginasMatrizC);
+        System.out.println("Numero de Paginas que ocupa la matriz A: "+nPaginasMatrizA);
+        System.out.println("Numero de Paginas que ocupa la matriz B: "+nPaginasMatrizB);
+        System.out.println("Numero de Paginas que ocupa la matriz C: "+nPaginasMatrizC);
+        System.out.println("El numero de referencias que se van a generar es: "+NR);
 
 
         try {
@@ -76,7 +77,7 @@ public class SegundoGenerador {
             bufferedWriter.newLine();
             bufferedWriter.write("NP= " + String.valueOf(NP));
             bufferedWriter.newLine();
-
+            
             for (int i = 0; i < NF; i++) {
                 for (int j = 0; j < NC2; j++) {
                     for (int k = 0; k < NC1; k++) {

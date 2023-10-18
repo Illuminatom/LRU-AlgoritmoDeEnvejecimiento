@@ -12,16 +12,20 @@ public class AlgoritmoEnvejecimiento {
     }
 
     public void envejecer(boolean usado) {
-        for (int i = 0; i < 8; i++) {
-            this.registros[i] = this.registros[i] >> 1;
+        int n = registros.length;
+        int[] resultado = new int[n];
+    
+        for (int i = 1; i < n; i++) {
+            resultado[i] = registros[i - 1];
         }
 
         if (usado) {
-            this.registros[0] = 1;
+            resultado[0] = 1;
         }
         else{
-            this.registros[0] = 0;
+            resultado[0] = 0;
         }
+        registros = resultado;
     }
 
     public int obtenerRegistro() {
