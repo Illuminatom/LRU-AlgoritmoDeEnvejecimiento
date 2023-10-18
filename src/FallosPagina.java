@@ -88,10 +88,10 @@ public class FallosPagina {
                 System.out.println("Paginas usadas en este ciclo: ");
 
                 for (int i = 0; i < paginasPulso.size(); i++) {
-                    if(paginasPulso.get(i)==1){
+                    if(i < paginas.size() && paginasPulso.get(i)==1){
                         System.out.println(paginas.get(i)+": Si");
                     }
-                    else{
+                    else if(i < paginas.size()){
                         System.out.println(paginas.get(i)+": No");
                     }
                 }

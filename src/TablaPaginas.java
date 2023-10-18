@@ -45,7 +45,7 @@ public class TablaPaginas {
     }
 
     public int darPaginaAReemplazar(List<Integer> paginas){
-        List<Integer> numerosPaginas = new ArrayList<Integer>(tablaPaginas.size());
+        List<Integer> numerosPaginas = new ArrayList<Integer>(tablaPaginas.size()-1);
         int j = 0;
         for (AlgoritmoEnvejecimiento pagina: tablaPaginas) {
             System.out.print("\nBits de la pagina "+paginas.get(j)+" : ");
