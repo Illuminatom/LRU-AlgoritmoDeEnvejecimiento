@@ -12,18 +12,6 @@ import java.util.Scanner;
 public class Main {
     private static FallosPagina fallosPagina;
     private static SegundoGenerador generador;
-    public static TablaPaginas tablaPaginas;
-    public static List<Integer> paginas; // paginas que estan en la memoria RAM
-    public static int numeroPaginas;
-    public static int fallos;
-    public static String nombreArchivo;
-    public static File archivo;
-    public static FileInputStream fileInputStream;
-    public static InputStreamReader inputStreamReader;
-    public static Scanner scanner;
-    public static BufferedReader bufferedReader;
-    public static List<Integer> paginasUsadas;
-    public static boolean fin;
 
     public static void main(String[] args) throws IOException {
         int opcion = -1;
@@ -47,17 +35,17 @@ public class Main {
                 fallosPagina = new FallosPagina();
                 fallosPagina.cargarReferencias();
             } else if (opcion == 3) {
+                T1 t1 = new T1();
                 System.out.println("Ingrese el nombre del archivo de referencias (Sin el .txt): ");
                 scanner.nextLine();
-                nombreArchivo = scanner.nextLine();
-                archivo = new File("..\\LRU-AlgoritmoDeEnvejecimiento/data/" + nombreArchivo + ".txt");
+                T1.nombreArchivo = scanner.nextLine();
+                T1.archivo = new File("..\\LRU-AlgoritmoDeEnvejecimiento/data/" + T1.nombreArchivo + ".txt");
                 System.out.println("Ingrese el numero de marcos de pagina: ");
-                numeroPaginas = scanner.nextInt();
-                paginas = new ArrayList<>(numeroPaginas);
-                tablaPaginas = new TablaPaginas(numeroPaginas);
-                paginasUsadas = new ArrayList<Integer>();
-                fin = false;
-                T1 t1 = new T1();
+                T1.numeroPaginas = scanner.nextInt();
+                T1.paginas = new ArrayList<>(T1.numeroPaginas);
+                T1.tablaPaginas = new TablaPaginas(T1.numeroPaginas);
+                T1.paginasUsadas = new ArrayList<Integer>();
+                T1.fin = false;
                 t1.start();
                 T2 t2 = new T2();
                 t2.start();
@@ -69,7 +57,7 @@ public class Main {
                     e.printStackTrace();
                 }
 
-                System.out.println("FALLOS DE PAGINA: "+fallos);
+                System.out.println("FALLOS DE PAGINA: "+T1.fallos);
             } else {
                 System.out.println("Seleccione una opción valida (0, 1, 2 o 3).");
             }

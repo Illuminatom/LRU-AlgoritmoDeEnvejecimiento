@@ -3,14 +3,14 @@ package src;
 public class T2 extends Thread{
     public void run(){
         while(true){
-            synchronized(Main.class) {
-                if(Main.fin == true){
+            synchronized(T1.class) {
+                if(T1.fin == true){
                     break;
                 }
             }
-            if(Main.paginasUsadas.size() != 0){
-                Main.tablaPaginas.envejecerPaginas(Main.paginasUsadas);
-                Main.paginasUsadas.clear();
+            if(T1.paginasUsadas.size() != 0){
+                T1.tablaPaginas.envejecerPaginas(T1.paginasUsadas);
+                T1.paginasUsadas.clear();
             }
         }
     }

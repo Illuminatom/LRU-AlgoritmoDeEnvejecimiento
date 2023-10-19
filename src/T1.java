@@ -1,21 +1,37 @@
 package src;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Scanner;
 
 public class T1 extends Thread {
+
+    public static TablaPaginas tablaPaginas;
+    public static List<Integer> paginas; // paginas que estan en la memoria RAM
+    public static int numeroPaginas;
+    public static int fallos;
+    public static String nombreArchivo;
+    public static File archivo;
+    public static FileInputStream fileInputStream;
+    public static InputStreamReader inputStreamReader;
+    public static Scanner scanner;
+    public static BufferedReader bufferedReader;
+    public static List<Integer> paginasUsadas;
+    public static boolean fin;
 
 
     public void run(){
 
         String linea;
         try {
-            Main.fileInputStream = new FileInputStream(Main.archivo);
-            Main.inputStreamReader = new InputStreamReader(Main.fileInputStream);
-            Main.bufferedReader = new BufferedReader(Main.inputStreamReader);
-            linea = Main.bufferedReader.readLine();
+            fileInputStream = new FileInputStream(archivo);
+            inputStreamReader = new InputStreamReader(fileInputStream);
+            bufferedReader = new BufferedReader(inputStreamReader);
+            linea = bufferedReader.readLine();
             while(linea != null){
                 System.out.println("LEYENDO LINEA : "+linea);
                 int numPagina = 0;
@@ -24,44 +40,48 @@ public class T1 extends Thread {
                     partes = linea.split(",");
                     String numPaginaString = partes[1].trim(); 
                     numPagina = Integer.parseInt(numPaginaString);
-                    if(!Main.paginas.contains(numPagina) && Main.paginas.size() < Main.numeroPaginas){
-                        Main.tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
-                        Main.paginas.add(numPagina);
+                    if(!paginas.contains(numPagina) && paginas.size() < numeroPaginas){
+                        tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
+                        paginas.add(numPagina);
                         
                     }
-                    else if(!Main.paginas.contains(numPagina) && Main.paginas.size() == Main.numeroPaginas){
-                        Main.paginas.add(numPagina);
-                        Main.fallos++;
-                        int indexPaginaReemplazar = Main.tablaPaginas.darPaginaAReemplazar(Main.paginas);
-                        Main.tablaPaginas.reemplazarPagina(indexPaginaReemplazar, new AlgoritmoEnvejecimiento());
-                        Main.paginas.set(indexPaginaReemplazar, numPagina);
+                    else if(!paginas.contains(numPagina) && paginas.size() == numeroPaginas){
+                        paginas.add(numPagina);
+                        fallos++;
+                        int indexPaginaReemplazar = tablaPaginas.darPaginaAReemplazar(paginas);
+                        tablaPaginas.reemplazarPagina(indexPaginaReemplazar, new AlgoritmoEnvejecimiento());
+                        paginas.set(indexPaginaReemplazar, numPagina);
                         System.out.println("FALLO DE PAGINA");
                     }
                     else{
-                        Main.tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
+                        tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
                     }
-                    System.out.println("PAGINAS EN RAM : "+Main.paginas.size());
-                    Main.paginasUsadas.add(numPagina);
+                    System.out.println("PAGINAS EN RAM : "+paginas.size());
+                    paginasUsadas.add(numPagina);
                     
                 }
                 sleep(2);
-                linea = Main.bufferedReader.readLine();
+                linea = bufferedReader.readLine();
             }
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        synchronized(Main.class) {
-            Main.fin = true;
-        }
+
+        finalizar();
+
         try {
-            Main.bufferedReader.close();
-            Main.inputStreamReader.close();
-            Main.fileInputStream.close();
+            bufferedReader.close();
+            inputStreamReader.close();
+            fileInputStream.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public synchronized void finalizar(){
+        fin = true;
     }
     
 }
