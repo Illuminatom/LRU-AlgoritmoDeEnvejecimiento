@@ -27,16 +27,4 @@ public class AlgoritmoEnvejecimiento {
         }
         registros = resultado;
     }
-
-    public int obtenerRegistro() {
-        int indice = 0;
-        for (int i = 1; i < 8; i++) {
-            indice += this.registros[i] * Math.pow(2, i - 1);
-        }
-        return indice;
-    }
-
-
 }
-    
-
