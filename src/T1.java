@@ -26,6 +26,7 @@ public class T1 extends Thread {
 
     public void run(){
 
+        fallos = 0;
         String linea;
         try {
             fileInputStream = new FileInputStream(archivo);
@@ -34,20 +35,18 @@ public class T1 extends Thread {
             linea = bufferedReader.readLine();
             while(linea != null){
                 System.out.println("LEYENDO LINEA : "+linea);
-                int numPagina = 0;
                 String[] partes = linea.split(",");
                 if(!linea.contains("=")){
                     partes = linea.split(",");
                     String numPaginaString = partes[1].trim(); 
-                    numPagina = Integer.parseInt(numPaginaString);
+                    Integer numPagina = Integer.parseInt(numPaginaString);
                     if(!paginas.contains(numPagina) && paginas.size() < numeroPaginas){
                         tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
                         paginas.add(numPagina);
                         
                     }
-                    else if(!paginas.contains(numPagina) && paginas.size() == numeroPaginas){
-                        paginas.add(numPagina);
-                        fallos++;
+                    else if(!paginas.contains(numPagina) && paginas.size() >= numeroPaginas){
+                        T1.fallos++;
                         int indexPaginaReemplazar = tablaPaginas.darPaginaAReemplazar(paginas);
                         tablaPaginas.reemplazarPagina(indexPaginaReemplazar, new AlgoritmoEnvejecimiento());
                         paginas.set(indexPaginaReemplazar, numPagina);
