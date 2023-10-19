@@ -8,11 +8,10 @@ public class T2 extends Thread{
                     break;
                 }
             }
-            if(Main.paginasUsadas.size() == 0){
-                continue;
+            if(Main.paginasUsadas.size() != 0){
+                Main.tablaPaginas.envejecerPaginas(Main.paginasUsadas);
+                Main.paginasUsadas.clear();
             }
-            Main.tablaPaginas.envejecerPaginas(Main.paginasUsadas);
-            Main.paginasUsadas.clear();
         }
     }
 }
