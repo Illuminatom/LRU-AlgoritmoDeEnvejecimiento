@@ -24,8 +24,9 @@ public class T1 extends Thread {
                     partes = linea.split(",");
                     numPagina = Integer.parseInt(partes[1]);
                     if(!Main.paginas.contains(numPagina) && Main.paginas.size() < Main.numeroPaginas){
-                        Main.paginas.add(numPagina);
                         Main.tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
+                        Main.paginas.add(numPagina);
+                        
                     }
                     else if(!Main.paginas.contains(numPagina) && Main.paginas.size() == Main.numeroPaginas){
                         Main.paginas.add(numPagina);
@@ -45,20 +46,21 @@ public class T1 extends Thread {
                 sleep(2);
                 linea = Main.bufferedReader.readLine();
             }
-            Main.fin = true;
-            Main.bufferedReader.close();
-            Main.inputStreamReader.close();
-            Main.fileInputStream.close();
-            System.out.println("FALLOS DE PAGINA : "+Main.fallos);
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-
-
-
-
+        synchronized(Main.class) {
+            Main.fin = true;
+        }
+        try {
+            Main.bufferedReader.close();
+            Main.inputStreamReader.close();
+            Main.fileInputStream.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
 }

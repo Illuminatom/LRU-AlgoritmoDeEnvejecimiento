@@ -45,10 +45,7 @@ public class TablaPaginas {
 
     public int darPaginaAReemplazar(List<Integer> paginas){
         List<Integer> numerosPaginas = new ArrayList<Integer>(tablaPaginas.size()-1);
-        int j = 0;
         for (AlgoritmoEnvejecimiento pagina: tablaPaginas) {
-            System.out.print("\nBits de la pagina "+paginas.get(j)+" : ");
-            for (int bit : pagina.registros) System.out.print(bit+",");
 
             String binarioPagina = "";
             for (Integer bit : pagina.registros) {
@@ -56,7 +53,6 @@ public class TablaPaginas {
             }
             int numeroPagina = Integer.parseInt(binarioPagina);
             numerosPaginas.add(numeroPagina);
-            j++;
         }
 
         int indiceMinimo = 0;

@@ -23,7 +23,7 @@ public class Main {
     public static Scanner scanner;
     public static BufferedReader bufferedReader;
     public static List<Integer> paginasUsadas;
-    public static boolean fin = false;
+    public static boolean fin;
 
     public static void main(String[] args) throws IOException {
         int opcion = -1;
@@ -56,6 +56,7 @@ public class Main {
                 paginas = new ArrayList<>(numeroPaginas);
                 tablaPaginas = new TablaPaginas(numeroPaginas);
                 paginasUsadas = new ArrayList<Integer>();
+                fin = false;
                 T1 t1 = new T1();
                 t1.start();
                 T2 t2 = new T2();
@@ -67,6 +68,8 @@ public class Main {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                System.out.println("FALLOS DE PAGINA: "+fallos);
             } else {
                 System.out.println("Seleccione una opción valida (0, 1, 2 o 3).");
             }
