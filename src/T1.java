@@ -22,7 +22,8 @@ public class T1 extends Thread {
                 String[] partes = linea.split(",");
                 if(!linea.contains("=")){
                     partes = linea.split(",");
-                    numPagina = Integer.parseInt(partes[1]);
+                    String numPaginaString = partes[1].trim(); 
+                    numPagina = Integer.parseInt(numPaginaString);
                     if(!Main.paginas.contains(numPagina) && Main.paginas.size() < Main.numeroPaginas){
                         Main.tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
                         Main.paginas.add(numPagina);

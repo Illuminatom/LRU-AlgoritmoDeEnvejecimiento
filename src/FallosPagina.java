@@ -54,8 +54,8 @@ public class FallosPagina {
             int numPagina = 0;
             String[] partes = linea.split(",");
             if(!linea.contains("=")){
-                numPagina = Integer.parseInt(partes[1]);
-                pulsoReloj-=1;
+                String numPaginaString = partes[1].trim();
+                numPagina = Integer.parseInt(numPaginaString);
             }
 
             if(pulsoReloj >= 0){
@@ -122,7 +122,8 @@ public class FallosPagina {
             int numPagina = 0;
             String[] partes = linea.split(",");
             if(!linea.contains("=")){
-                numPagina = Integer.parseInt(partes[1]);
+                String numPaginaString = partes[1].trim();
+                numPagina = Integer.parseInt(numPaginaString);
             }
             if(!linea.contains("=") && tablaPaginas.getTablaPaginas().size()<numeroPaginas && !paginas.contains(numPagina)){
                 System.out.println("Se cargo la pagina "+numPagina+" a la tabla de paginas\n");
