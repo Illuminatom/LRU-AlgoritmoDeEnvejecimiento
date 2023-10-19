@@ -29,6 +29,7 @@ public class T1 extends Thread {
         fallos = 0;
         String linea;
         try {
+
             fileInputStream = new FileInputStream(archivo);
             inputStreamReader = new InputStreamReader(fileInputStream);
             bufferedReader = new BufferedReader(inputStreamReader);
@@ -38,14 +39,13 @@ public class T1 extends Thread {
                 String[] partes = linea.split(",");
                 if(!linea.contains("=")){
                     partes = linea.split(",");
-                    String numPaginaString = partes[1].trim(); 
-                    Integer numPagina = Integer.parseInt(numPaginaString);
-                    if(!paginas.contains(numPagina) && paginas.size() < numeroPaginas){
+                    Integer numPagina = Integer.parseInt(partes[1]);
+                    if(!paginas.contains(numPagina) && tablaPaginas.getTablaPaginas().size() < numeroPaginas){
                         tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
                         paginas.add(numPagina);
                         
                     }
-                    else if(!paginas.contains(numPagina) && paginas.size() >= numeroPaginas){
+                    else if(!paginas.contains(numPagina) && tablaPaginas.getTablaPaginas().size() >= numeroPaginas){
                         T1.fallos++;
                         int indexPaginaReemplazar = tablaPaginas.darPaginaAReemplazar(paginas);
                         tablaPaginas.reemplazarPagina(indexPaginaReemplazar, new AlgoritmoEnvejecimiento());
@@ -53,7 +53,7 @@ public class T1 extends Thread {
                         System.out.println("FALLO DE PAGINA");
                     }
                     else{
-                        tablaPaginas.añadirPagina(new AlgoritmoEnvejecimiento());
+                        System.out.println("PAGINA YA ESTA EN RAM");
                     }
                     System.out.println("PAGINAS EN RAM : "+paginas.size());
                     paginasUsadas.add(numPagina);
