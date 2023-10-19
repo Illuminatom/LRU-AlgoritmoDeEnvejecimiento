@@ -28,7 +28,6 @@ public class TablaPaginas {
     }
 
     //Envejece todas las paginas en la tabla de paginas
-    //@return: Los bitsR
     public void envejecerPaginas(List<Integer> paginasPulso) {
         for (int i = 0; i < tablaPaginas.size(); i++) {
             if (paginasPulso.get(i) == 1) {
