@@ -60,6 +60,13 @@ public class Main {
                 t1.start();
                 T2 t2 = new T2();
                 t2.start();
+
+                try {
+                    t1.join();
+                    t2.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 System.out.println("Seleccione una opción valida (0, 1, 2 o 3).");
             }

@@ -49,6 +49,7 @@ public class T1 extends Thread {
             Main.bufferedReader.close();
             Main.inputStreamReader.close();
             Main.fileInputStream.close();
+            System.out.println("FALLOS DE PAGINA : "+Main.fallos);
         } catch (IOException | InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
